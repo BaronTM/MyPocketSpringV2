@@ -50,11 +50,11 @@ public class AuthenticationController {
         if (!((loginPattern.matcher(userName).matches() || emailPattern.matcher(userName).matches())
                 && passwordPattern.matcher(password).matches())) {
             resultMap.put("result", "INCORRECT");
-        } else if (userRepository.checkIfUserExists(userName)) {
+        } else if (userRepository.countByUserName(userName) > 0) {
             resultMap.put("result", "OCCUPIED");
         } else {
             User newUser = new User(userName, passwordEncoder.encode(password));
-            userRepository.persistUser(newUser);
+            userRepository.save(newUser);
             resultMap.put("result", "OK");
         }
 

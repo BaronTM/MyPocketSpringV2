@@ -18,7 +18,7 @@ public class PocketUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        com.myPocket.myPocket.model.entities.User userFromRepository = userRepository.getUserFromRepository(userName);
+        com.myPocket.myPocket.model.entities.User userFromRepository = userRepository.findByUserName(userName);
         return new User(userFromRepository.getUserName(), userFromRepository.getPassword(), new ArrayList<>());
     }
 }
