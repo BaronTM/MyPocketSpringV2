@@ -41,12 +41,27 @@ public class JwtUtil {
         return createToken(claims, userDetails.getUsername());
     }
 
+    public String generateTokenWithExpirationDate(UserDetails userDetails, Date expirationDate) {
+        Map<String, Object> claims = new HashMap<>();
+        return createTokenWithExpirationDate(claims, userDetails.getUsername(), expirationDate);
+    }
+
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+                .signWith(SignatureAlgorithm.HS384, SECRET_KEY)
+                .compact();
+    }
+
+    private String createTokenWithExpirationDate(Map<String, Object> claims, String subject, Date expirationDate) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS384, SECRET_KEY)
                 .compact();
     }

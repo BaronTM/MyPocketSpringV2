@@ -14,36 +14,30 @@ public class Revenue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
     @Column(name = "id_revenue")
+    @Getter @Setter
     private Integer idRevenue;
 
-    @Getter
-    @Setter
     @Column(name = "date")
+    @Getter @Setter
     private Date date;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_revenue_category")
+    @Getter @Setter
     private RevenueCategory revenueCategory;
 
-    @Getter
-    @Setter
     @Column(name = "value")
+    @Getter @Setter
     private double value;
 
-    @Getter
-    @Setter
     @Column(name = "description")
+    @Getter @Setter
     private String description;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_account")
+    @Getter @Setter
     private Account account;
 
     public Revenue(RevenueCategory revenueCategory, Account account, double value) {
@@ -52,4 +46,14 @@ public class Revenue {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return "Revenue{" +
+                "idRevenue=" + idRevenue +
+                ", date=" + date +
+                ", revenueCategory=" + revenueCategory +
+                ", value=" + value +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

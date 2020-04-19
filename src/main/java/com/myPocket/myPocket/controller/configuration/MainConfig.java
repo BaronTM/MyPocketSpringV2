@@ -1,4 +1,4 @@
-package com.myPocket.myPocket.controller;
+package com.myPocket.myPocket.controller.configuration;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;

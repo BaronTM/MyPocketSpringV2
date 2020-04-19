@@ -1,4 +1,4 @@
-package com.myPocket.myPocket.controller.security;
+package com.myPocket.myPocket.controller.configuration;
 
 import com.myPocket.myPocket.controller.security.filters.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;

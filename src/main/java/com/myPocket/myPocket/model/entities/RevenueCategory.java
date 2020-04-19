@@ -1,6 +1,6 @@
 package com.myPocket.myPocket.model.entities;
 
-import com.myPocket.myPocket.model.Defaults;
+import com.myPocket.myPocket.model.utils.Defaults;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,24 +15,20 @@ public class RevenueCategory {
     @Id
     @Column(name = "id_revenue_category")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer idRevenueCategoty;
 
-    @Getter
-    @Setter
     @Column(name = "revenue_category_name")
+    @Getter @Setter
     private String categoryName;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_wallet")
+    @Getter @Setter
     private Wallet wallet;
 
-    @Getter
-    @Setter
     @Column(name = "color")
+    @Getter @Setter
     private String color;
 
     public RevenueCategory(String categoryName, Wallet wallet) {
@@ -41,4 +37,12 @@ public class RevenueCategory {
         this.color = Defaults.getRandomColor();
     }
 
+    @Override
+    public String toString() {
+        return "RevenueCategory{" +
+                "idRevenueCategoty=" + idRevenueCategoty +
+                ", categoryName='" + categoryName + '\'' +
+                ", color='" + color + '\'' +
+                '}';
+    }
 }

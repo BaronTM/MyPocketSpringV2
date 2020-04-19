@@ -15,35 +15,29 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_expense")
-    @Getter
-    @Setter
+    @Getter @Setter
     private Integer idExpense;
 
-    @Getter
-    @Setter
     @Column(name = "date")
+    @Getter @Setter
     private Date date;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_expense_category")
+    @Getter @Setter
     private ExpenseCategory expenseCategory;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_account")
+    @Getter @Setter
     private Account account;
 
-    @Getter
-    @Setter
     @Column(name = "value")
+    @Getter @Setter
     private double value;
 
-    @Getter
-    @Setter
     @Column(name = "description")
+    @Getter @Setter
     private String description;
 
     public Expense(ExpenseCategory expenseCategory, Account account, double value) {
@@ -52,5 +46,14 @@ public class Expense {
         this.value = value;
     }
 
-
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "idExpense=" + idExpense +
+                ", date=" + date +
+                ", expenseCategory=" + expenseCategory +
+                ", value=" + value +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

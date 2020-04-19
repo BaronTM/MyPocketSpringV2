@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,34 +15,29 @@ import java.util.List;
 @Table(name = "account")
 public class Account {
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_account")
+    @Getter @Setter
     private Integer idAccount;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_wallet")
+    @Getter @Setter
     private Wallet wallet;
 
-    @Getter
-    @Setter
     @Column(name = "account_name")
+    @Getter @Setter
     private String accountName;
 
-    @Getter
-    @Setter
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @Getter @Setter
     private List<Expense> expenses;
 
-    @Getter
-    @Setter
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @Getter @Setter
     private List<Revenue> revenues;
 
     public Account(String accountName, Wallet wallet) {
@@ -70,10 +64,17 @@ public class Account {
         return revenues.stream().mapToDouble(r -> r.getValue()).sum();
     }
 
-    public double getBallance() {
+    public double getBalance() {
         return getAllRevenuesValue() - getAllExpensesValue();
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Account{" +
+                "idAccount=" + idAccount +
+                ", accountName='" + accountName + '\'' +
+                ", expenses=" + expenses +
+                ", revenues=" + revenues +
+                '}';
+    }
 }
