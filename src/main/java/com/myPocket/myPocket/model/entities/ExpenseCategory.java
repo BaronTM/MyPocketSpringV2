@@ -1,10 +1,11 @@
 package com.myPocket.myPocket.model.entities;
 
-import com.myPocket.myPocket.model.Defaults;
+import com.myPocket.myPocket.model.utils.Defaults;
 import lombok.*;
 
 import javax.persistence.*;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -15,23 +16,15 @@ public class ExpenseCategory {
     @Id
     @Column(name = "id_expense_category")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
     private Integer idExpenseCategory;
 
-    @Getter
-    @Setter
     @Column(name = "expense_category_name")
     private String categoryName;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_wallet")
     private Wallet wallet;
 
-    @Getter
-    @Setter
     @Column(name = "color")
     private String color;
 

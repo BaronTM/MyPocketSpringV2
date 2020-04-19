@@ -1,7 +1,7 @@
 package com.myPocket.myPocket.controller.security;
 
 import com.myPocket.myPocket.controller.security.filters.JwtRequestFilter;
-import com.myPocket.myPocket.controller.services.PocketUserDetailService;
+import com.myPocket.myPocket.controller.services.UserRepositoryUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    private PocketUserDetailService userDetailService;
+    private UserRepositoryUserDetailService userDetailService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;

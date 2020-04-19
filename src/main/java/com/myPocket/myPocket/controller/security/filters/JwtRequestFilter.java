@@ -1,6 +1,6 @@
 package com.myPocket.myPocket.controller.security.filters;
 
-import com.myPocket.myPocket.controller.services.PocketUserDetailService;
+import com.myPocket.myPocket.controller.services.UserRepositoryUserDetailService;
 import com.myPocket.myPocket.controller.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
-    private PocketUserDetailService userDetailService;
+    private UserRepositoryUserDetailService userDetailService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -31,16 +31,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader("Authorization");
 
         try {
-            String userName = null;
+            String username = null;
             String jwt = null;
 
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 jwt = authorizationHeader.substring(7);
-                userName = jwtUtil.extractUsername(jwt);
+                username = jwtUtil.extractUsername(jwt);
             }
 
-            if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailService.loadUserByUsername(userName);
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = this.userDetailService.loadUserByUsername(username);
 
                 if (jwtUtil.validateToken(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken

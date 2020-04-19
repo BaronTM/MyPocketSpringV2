@@ -1,4 +1,4 @@
-package com.myPocket.myPocket;
+package com.myPocket.myPocket.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

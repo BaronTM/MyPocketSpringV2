@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,39 +16,28 @@ import java.util.List;
 @Table(name = "account")
 public class Account {
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_account")
     private Integer idAccount;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_wallet")
     private Wallet wallet;
 
-    @Getter
-    @Setter
     @Column(name = "account_name")
     private String accountName;
 
-    @Getter
-    @Setter
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Expense> expenses;
 
-    @Getter
-    @Setter
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Revenue> revenues;
 
-    public Account(String accountName, Wallet wallet) {
+    public Account(String accountName) {
         this.accountName = accountName;
-        this.wallet = wallet;
         this.expenses = new ArrayList<>();
         this.revenues = new ArrayList<>();
     }
@@ -70,10 +59,9 @@ public class Account {
         return revenues.stream().mapToDouble(r -> r.getValue()).sum();
     }
 
-    public double getBallance() {
+    public double getBalance() {
         return getAllRevenuesValue() - getAllExpensesValue();
     }
-
 
 
 }
